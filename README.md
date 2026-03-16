@@ -24,7 +24,7 @@ sudo zfs create your-zpool/snapshots
 You can download prebuilt binaries for the snapshotter from the [release page](https://github.com/welteki/zvol-snapshotter/releases) or [build them from source](#build-zvol-snapshotter-from-source).
 
 ```sh
-version="0.3.0"
+version="0.4.0"
 arch="amd64"
 
 wget https://github.com/welteki/zvol-snapshotter/releases/download/v${version}/zvol-snapshotter-${version}-linux-${arch}.tar.gz
@@ -101,7 +101,9 @@ The following configuration settings are available:
 
 Containerd snapshot labels are automatically stored as ZFS user properties on the underlying datasets. This makes it possible to identify and query ZFS volumes and snapshots based on container metadata using standard `zfs` commands.
 
-Labels are stored with the prefix `containerd:label.` and the label name is sanitized to comply with ZFS property naming rules: characters are lowercased, `/` becomes `_`, while `.`, `:`, `+`, and `_` are preserved.
+Containerd only forwards labels prefixed with `containerd.io/snapshot/` to snapshotters. Since this prefix is always present, it is stripped from the ZFS property name for brevity. The remaining label name is stored with the prefix `containerd:label.` and sanitized to comply with ZFS property naming rules: characters are lowercased, `/` becomes `_`, while `.`, `:`, `+`, and `_` are preserved.
+
+For example, the label `containerd.io/snapshot/myapp/environment` becomes the ZFS property `containerd:label.myapp_environment`.
 
 When a snapshot is committed, the labels are written to the ZFS volume before the ZFS snapshot is taken, so the `@snapshot` automatically inherits them. When cloning from a parent snapshot, only the labels provided by containerd for the new snapshot are set on the clone.
 
@@ -113,7 +115,7 @@ List all datasets with any containerd label:
 zfs get all -r your-zpool/snapshots -o name,property,value | grep "containerd:label"
 ```
 
-Find datasets by a custom application label (e.g. `myapp/environment`):
+Find datasets by a custom application label (e.g. `containerd.io/snapshot/myapp/environment`):
 
 ```sh
 zfs get containerd:label.myapp_environment \

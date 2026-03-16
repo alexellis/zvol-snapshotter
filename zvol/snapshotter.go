@@ -31,6 +31,10 @@ const (
 	zfsLabelPropertyPrefix    = "containerd:label."
 	zfsLabelPropertyMaxLength = 256
 
+	// containerdSnapshotLabelPrefix is the prefix containerd requires on labels
+	// forwarded to snapshotters. We strip it from ZFS property names for brevity.
+	containerdSnapshotLabelPrefix = "containerd.io/snapshot/"
+
 	zfsDevicePath = "/dev/zvol"
 
 	// snapshotSuffix is used as follows:
@@ -640,6 +644,7 @@ func setZfsLabelProperties(ctx context.Context, dataset *zfs.Dataset, labels map
 
 
 func sanitizeZfsLabelPropertyName(label string) string {
+	label = strings.TrimPrefix(label, containerdSnapshotLabelPrefix)
 	label = strings.ToLower(label)
 	if label == "" {
 		return ""
