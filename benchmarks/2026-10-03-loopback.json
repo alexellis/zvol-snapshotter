@@ -1,0 +1,362 @@
+[
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "profile": "baseline",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      493.807361,
+      532.375556,
+      554.908453,
+      556.704922,
+      571.462803,
+      590.398717
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "standard/baseline.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "profile": "baseline",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      542.420813,
+      503.83535199999994,
+      579.0309209999999,
+      487.601909,
+      471.95523099999997,
+      593.94056
+    ],
+    "application_ms": [
+      1218.9186949999998,
+      1231.8618720000002,
+      1249.690797,
+      1218.802387,
+      1150.9822780000002,
+      1265.99269
+    ],
+    "complete": true,
+    "evidence": "standard/baseline.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "profile": "network",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      563.092711,
+      498.82091,
+      519.754978,
+      502.28276800000003,
+      477.387855,
+      457.811409
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "standard/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "profile": "network",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      428.719243,
+      381.669044,
+      462.64629,
+      423.72494,
+      434.600445,
+      428.973999
+    ],
+    "application_ms": [
+      1096.847809,
+      1106.170524,
+      1131.382603,
+      1093.184085,
+      1104.155095,
+      1152.19247
+    ],
+    "complete": true,
+    "evidence": "standard/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "profile": "full",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      390.42312499999997,
+      430.995364,
+      440.414676,
+      465.88131599999997,
+      468.442227,
+      453.20340999999996
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "standard/full.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "profile": "full",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      420.304165,
+      382.44808600000005,
+      418.741765,
+      448.771817,
+      448.349293,
+      473.06968900000004
+    ],
+    "application_ms": [
+      1090.327915,
+      1115.098538,
+      1152.6159599999999,
+      1180.097191,
+      1122.026151,
+      1146.509539
+    ],
+    "complete": true,
+    "evidence": "standard/full.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "profile": "baseline",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      507.07135999999997,
+      499.349944,
+      501.008207,
+      470.207921,
+      516.939426,
+      554.019938
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "min/baseline.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "profile": "baseline",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      489.85770099999996,
+      450.244777,
+      518.333953,
+      531.614467,
+      482.935903,
+      518.5423529999999
+    ],
+    "application_ms": [
+      1217.012274,
+      1127.353324,
+      1193.221108,
+      1206.523193,
+      1159.873953,
+      1195.877798
+    ],
+    "complete": true,
+    "evidence": "min/baseline.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "profile": "network",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      438.778025,
+      418.599739,
+      517.9763509999999,
+      458.317062,
+      458.49126,
+      518.3138200000001
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "min/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "profile": "network",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      451.297455,
+      426.776044,
+      430.804266,
+      451.89959,
+      379.40455099999997,
+      447.352893
+    ],
+    "application_ms": [
+      1067.5524380000002,
+      1100.952411,
+      1104.5523500000002,
+      1124.194328,
+      1059.111631,
+      1065.299358
+    ],
+    "complete": true,
+    "evidence": "min/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "profile": "full",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      403.061152,
+      405.03765200000004,
+      455.706619,
+      431.15246099999996,
+      444.916082,
+      437.84664899999996
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "min/full.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "profile": "full",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      417.75913599999996,
+      388.00164,
+      359.231386,
+      417.032469,
+      435.213333,
+      415.32695800000005
+    ],
+    "application_ms": [
+      1088.681517,
+      1058.336753,
+      1031.439866,
+      1089.927365,
+      1108.146826,
+      1086.0567219999998
+    ],
+    "complete": true,
+    "evidence": "min/full.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "batch-flush-standard",
+    "profile": "network",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      414.143739,
+      456.38182700000004,
+      478.997889,
+      498.365377,
+      521.051187,
+      456.74093
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "batch-flush-standard/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "batch-flush-standard",
+    "profile": "network",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      429.666775,
+      425.842972,
+      468.54885,
+      546.0203799999999,
+      468.67150699999996,
+      461.813978
+    ],
+    "application_ms": [
+      1098.45246,
+      1151.0657840000001,
+      1256.377118,
+      1277.952966,
+      1198.0180730000002,
+      1247.868185
+    ],
+    "complete": true,
+    "evidence": "batch-flush-standard/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "batch-flush-min",
+    "profile": "network",
+    "kind": "normal-boot",
+    "n": 6,
+    "agent_ms": [
+      424.719293,
+      416.55816,
+      434.07305,
+      436.387106,
+      477.601815,
+      459.018761
+    ],
+    "application_ms": [],
+    "complete": true,
+    "evidence": "batch-flush-min/network.jsonl"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "batch-flush-min",
+    "profile": "network",
+    "kind": "cold-fork",
+    "n": 6,
+    "agent_ms": [
+      447.00516600000003,
+      338.947331,
+      359.746263,
+      389.08927,
+      398.426288,
+      405.36886300000003
+    ],
+    "application_ms": [
+      1124.973061,
+      1009.8967690000001,
+      1031.107039,
+      1059.076549,
+      1069.549846,
+      1075.55003
+    ],
+    "complete": true,
+    "evidence": "batch-flush-min/network.jsonl"
+  }
+]

@@ -9,6 +9,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -443,6 +444,12 @@ func (s *snapshotter) Commit(ctx context.Context, name, key string, opts ...snap
 			}
 		}
 
+		// Firecracker may write through the Linux block-device page cache.
+		// ZFS snapshots capture the ZFS backing blocks, so flush that cache first.
+		if err := syncVolume(getDevicePath(active)); err != nil {
+			return err
+		}
+
 		if _, err := active.Snapshot(snapshotSuffix, false); err != nil {
 			return err
 		}
@@ -624,8 +631,19 @@ func getLabelOpts(opts ...snapshots.Opt) map[string]string {
 	return info.Labels
 }
 
+// Apply tracing labels in one ZFS operation instead of spawning a process
+// for every label. Property sanitisation is unchanged.
 func setZfsLabelProperties(ctx context.Context, dataset *zfs.Dataset, labels map[string]string) error {
-	for key, value := range labels {
+	if len(labels) == 0 {
+		return nil
+	}
+	keys := make([]string, 0, len(labels))
+	for key := range labels {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	properties := make(map[string]string, len(keys))
+	for _, key := range keys {
 		propertyName := zfsLabelPropertyPrefix + sanitizeZfsLabelPropertyName(key)
 		if propertyName == zfsLabelPropertyPrefix {
 			log.G(ctx).Warnf("skipping empty label name for dataset %s", dataset.Name)
@@ -635,13 +653,27 @@ func setZfsLabelProperties(ctx context.Context, dataset *zfs.Dataset, labels map
 			propertyName = propertyName[:zfsLabelPropertyMaxLength]
 			log.G(ctx).Warnf("truncated zfs label property name to %q", propertyName)
 		}
-		if err := dataset.SetProperty(propertyName, value); err != nil {
-			return err
-		}
+		properties[propertyName] = labels[key]
+	}
+	if len(properties) == 0 {
+		return nil
+	}
+	propertyNames := make([]string, 0, len(properties))
+	for propertyName := range properties {
+		propertyNames = append(propertyNames, propertyName)
+	}
+	sort.Strings(propertyNames)
+	args := []string{"set"}
+	for _, propertyName := range propertyNames {
+		args = append(args, propertyName+"="+properties[propertyName])
+	}
+	args = append(args, dataset.Name)
+	output, err := exec.CommandContext(ctx, "zfs", args...).CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("set ZFS labels on %s: %w: %s", dataset.Name, err, strings.TrimSpace(string(output)))
 	}
 	return nil
 }
-
 
 func sanitizeZfsLabelPropertyName(label string) string {
 	label = strings.TrimPrefix(label, containerdSnapshotLabelPrefix)
@@ -665,4 +697,14 @@ func sanitizeZfsLabelPropertyName(label string) string {
 		}
 	}
 	return builder.String()
+}
+
+func syncVolume(device string) error {
+	f, err := os.OpenFile(device, os.O_RDWR, 0)
+	if err != nil {
+		return fmt.Errorf("open zvol before checkpoint: %w", err)
+	}
+	err = f.Sync()
+	closeErr := f.Close()
+	return errors.Join(err, closeErr)
 }
