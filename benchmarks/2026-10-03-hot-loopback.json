@@ -101,7 +101,9 @@
     "complete": true,
     "evidence": "standard-counter.jsonl",
     "sha256": "8cb44ded876c0ee32ca7077c8841095796b77ed62685ce3e845bf420c88723e5",
-    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter",
+    "actual_variant": "standard",
+    "variant_valid": true
   },
   {
     "host": ".20",
@@ -205,12 +207,14 @@
     "complete": true,
     "evidence": "standard-index.jsonl",
     "sha256": "8fcf4de9be67fab109c6618c8976a03e7ab1ce039f65a8f14f54895faecafbd4",
-    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter",
+    "actual_variant": "standard",
+    "variant_valid": true
   },
   {
     "host": ".20",
     "storage": "zvol-loopback",
-    "variant": "min",
+    "variant": "standard-repeat",
     "workload": "counter",
     "n": 6,
     "personal_agent_ms": [
@@ -309,12 +313,16 @@
     "complete": true,
     "evidence": "min-counter.jsonl",
     "sha256": "498da8506344902242845764f999c487810fce12b2f4b0e4b62a23cd2bac9637",
-    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter",
+    "requested_variant": "min",
+    "actual_variant": "standard",
+    "variant_valid": false,
+    "correction": "The .yaml.lock retained the standard image. Excluded from minimal-image claims."
   },
   {
     "host": ".20",
     "storage": "zvol-loopback",
-    "variant": "min",
+    "variant": "standard-repeat",
     "workload": "index",
     "n": 6,
     "personal_agent_ms": [
@@ -413,6 +421,10 @@
     "complete": true,
     "evidence": "min-index.jsonl",
     "sha256": "350dc59c93827004b53d6486d23234b4a1d922c3515cedce3153c39d604b4a22",
-    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter",
+    "requested_variant": "min",
+    "actual_variant": "standard",
+    "variant_valid": false,
+    "correction": "The .yaml.lock retained the standard image. Excluded from minimal-image claims."
   }
 ]

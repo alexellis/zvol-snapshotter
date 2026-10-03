@@ -13,6 +13,12 @@ ordinary ZFS clones. This trades extra disk storage and a longer source pause
 for independent source/checkpoint lifetimes. It does not implement zero-copy
 live capture; a clone/ancestry lifecycle is a future experiment.
 
+## Variant correction
+
+An explicit digest-switch control in the follow-up caught the retained lock
+file. The previous minimal-image labels and associated performance claims
+are withdrawn. Standard-image timings remain valid.
+
 ## Recorded timings
 
 .20: Ryzen AI9 HX370 / NVMe; OpenZFS 2.2.2, 64 GiB sparse-file pool on host
@@ -26,8 +32,8 @@ cost is one observation, reported separately from fork latency.
 | --- | --- | --- | --- | --- | --- | --- |
 | standard | counter | 152.5 | 157.3 | 146.1 | 150.8 | 1.39 |
 | standard | index | 148.0 | 152.8 | 139.6 | 144.3 | 1.54 |
-| min | counter | 145.7 | 150.6 | 133.9 | 138.3 | 1.50 |
-| min | index | 152.7 | 157.8 | 146.2 | 151.9 | 1.59 |
+| standard repeat (requested min) | counter | 145.7 | 150.6 | 133.9 | 138.3 | 1.50 |
+| standard repeat (requested min) | index | 152.7 | 157.8 | 146.2 | 151.9 | 1.59 |
 
 The four final timer-corrected SDK rounds passed: 48 mode-comparison hot forks,
 4 fresh-boot cold controls, and 4 hot forks after deletion of the source.
@@ -45,7 +51,10 @@ image parent. `go test -mod=mod -race ./...` passes.
 
 An earlier complete comparison was faster but recorded unchanged-state app
 time after an extra identity exec; it was excluded. The final round measured
-HTTP before that check. `--min` shows no reliable hot-fork advantage here.
+HTTP before that check. The rounds labelled `min` actually used the standard image because
+`slicer.yaml.lock` retained its digest. They are standard-image repeats;
+minimal-image performance was not measured. Their workload and cleanup
+controls remain valid. The JSON now records requested and actual variants.
 
 Full send/receive currently holds the snapshot metadata write transaction;
 other metadata operations can wait behind it. The controlled receive-failure
