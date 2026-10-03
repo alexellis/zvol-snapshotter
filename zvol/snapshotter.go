@@ -306,6 +306,22 @@ func (s *snapshotter) createSnapshot(ctx context.Context, kind snapshots.Kind, k
 
 	targetName := filepath.Join(s.dataset.Name, snap.ID)
 	var target *zfs.Dataset
+	if source := labels[LabelLiveOrigin]; source != "" {
+		if kind != snapshots.KindActive || len(snap.ParentIDs) == 0 {
+			return nil, fmt.Errorf("live capture requires an active destination with a parent")
+		}
+		target, err = s.captureLiveVolume(ctx, source, targetName, parent, volSize)
+		if err != nil {
+			return nil, err
+		}
+		if err := setZfsLabelProperties(ctx, target, labels); err != nil {
+			cleanup, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+			defer cancel()
+			_, cleanupErr := runZFS(cleanup, "destroy", "-r", targetName)
+			return nil, errors.Join(err, cleanupErr)
+		}
+		return getMounts(target, false), nil
+	}
 	if len(snap.ParentIDs) == 0 {
 		log.G(ctx).Debugf("creating new zfs volume '%s'", targetName)
 

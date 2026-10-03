@@ -1,0 +1,418 @@
+[
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "workload": "counter",
+    "n": 6,
+    "personal_agent_ms": [
+      143.837265,
+      152.73909999999998,
+      143.19620799999998,
+      157.817182,
+      152.179495,
+      153.73949100000002
+    ],
+    "personal_app_ms": [
+      149.515115,
+      157.42536700000002,
+      147.891632,
+      163.51843399999998,
+      157.214106,
+      158.234882
+    ],
+    "unchanged_agent_ms": [
+      144.69069000000002,
+      137.608909,
+      150.518644,
+      146.69753899999998,
+      145.43292,
+      158.1982
+    ],
+    "unchanged_app_ms": [
+      149.127876,
+      142.23461700000001,
+      155.101564,
+      151.47733599999998,
+      150.032721,
+      163.976794
+    ],
+    "capture_ms": 1388.587859,
+    "capture_n": 1,
+    "cold_control": {
+      "child": {
+        "hostname": "hotzfs-14",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-51ac3c605448f671",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "disk",
+        "persistent": true
+      },
+      "personalised_agent_ms": 458.99627,
+      "workload": {
+        "cached_fake_credential_present": false,
+        "counter": 0,
+        "documents": 0,
+        "initialisation_ms": 0.342,
+        "marker": "563c465b887b475ca6b09b6daf8ab445",
+        "mode": "counter",
+        "pid": 560,
+        "query_hits": 0,
+        "workspace": "prepared-workspace"
+      },
+      "workload_ms": 573.427378
+    },
+    "after_source_delete": {
+      "child": {
+        "hostname": "hotzfs-1",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-5b6236df7619c5bb",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "memory",
+        "persistent": true
+      },
+      "ms": 170.973839,
+      "workload": {
+        "cached_fake_credential_present": true,
+        "counter": 42,
+        "documents": 0,
+        "initialisation_ms": 0.075,
+        "marker": "5ff7a6d2ec8349ffbc3dd644c245600e",
+        "mode": "counter",
+        "pid": 677,
+        "query_hits": 0,
+        "workspace": "prepared-workspace"
+      }
+    },
+    "controls": [
+      "cleanup-passed",
+      "cold-child",
+      "commit-delete-blocked",
+      "disk-independence-passed",
+      "hot-after-source-delete",
+      "independence-passed",
+      "source-deleted"
+    ],
+    "injected_failure_control": true,
+    "complete": true,
+    "evidence": "standard-counter.jsonl",
+    "sha256": "8cb44ded876c0ee32ca7077c8841095796b77ed62685ce3e845bf420c88723e5",
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "standard",
+    "workload": "index",
+    "n": 6,
+    "personal_agent_ms": [
+      145.24197999999998,
+      148.223945,
+      147.67674,
+      149.682857,
+      142.669938,
+      152.26637200000002
+    ],
+    "personal_app_ms": [
+      151.012371,
+      153.30471200000002,
+      152.393025,
+      155.32784999999998,
+      147.571088,
+      158.318736
+    ],
+    "unchanged_agent_ms": [
+      143.58613,
+      134.81933099999998,
+      143.32541600000002,
+      137.285204,
+      133.213658,
+      141.91843500000002
+    ],
+    "unchanged_app_ms": [
+      150.38397,
+      139.465378,
+      148.488032,
+      142.337199,
+      138.271103,
+      146.32693
+    ],
+    "capture_ms": 1539.660183,
+    "capture_n": 1,
+    "cold_control": {
+      "child": {
+        "hostname": "hotzfs-14",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-80be56ad2f6410e2",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "disk",
+        "persistent": true
+      },
+      "personalised_agent_ms": 481.62539300000003,
+      "workload": {
+        "cached_fake_credential_present": false,
+        "counter": 0,
+        "documents": 300000,
+        "initialisation_ms": 612.409,
+        "marker": "e4225c959e36431dbc4e27f30bce8e37",
+        "mode": "index",
+        "pid": 553,
+        "query_hits": 3093,
+        "workspace": "prepared-workspace"
+      },
+      "workload_ms": 1213.422849
+    },
+    "after_source_delete": {
+      "child": {
+        "hostname": "hotzfs-1",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-b12e875590f0e2f1",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "memory",
+        "persistent": true
+      },
+      "ms": 253.37321699999998,
+      "workload": {
+        "cached_fake_credential_present": true,
+        "counter": 42,
+        "documents": 300000,
+        "initialisation_ms": 568.689,
+        "marker": "5cba34217cd74999928b9f764d614a67",
+        "mode": "index",
+        "pid": 677,
+        "query_hits": 3093,
+        "workspace": "prepared-workspace"
+      }
+    },
+    "controls": [
+      "cleanup-passed",
+      "cold-child",
+      "commit-delete-blocked",
+      "disk-independence-passed",
+      "hot-after-source-delete",
+      "independence-passed",
+      "source-deleted"
+    ],
+    "injected_failure_control": false,
+    "complete": true,
+    "evidence": "standard-index.jsonl",
+    "sha256": "8fcf4de9be67fab109c6618c8976a03e7ab1ce039f65a8f14f54895faecafbd4",
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "workload": "counter",
+    "n": 6,
+    "personal_agent_ms": [
+      140.352534,
+      158.703281,
+      152.163677,
+      145.77496000000002,
+      145.615669,
+      140.163931
+    ],
+    "personal_app_ms": [
+      145.677107,
+      164.006435,
+      156.925127,
+      150.462324,
+      150.672967,
+      144.651873
+    ],
+    "unchanged_agent_ms": [
+      134.556163,
+      138.397248,
+      131.64444699999999,
+      133.16745699999998,
+      133.099741,
+      138.247433
+    ],
+    "unchanged_app_ms": [
+      138.900013,
+      143.917909,
+      135.97564400000002,
+      137.466105,
+      137.636412,
+      142.917196
+    ],
+    "capture_ms": 1498.121576,
+    "capture_n": 1,
+    "cold_control": {
+      "child": {
+        "hostname": "hotzfs-14",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-a81eec5050a56ced",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "disk",
+        "persistent": true
+      },
+      "personalised_agent_ms": 453.32234,
+      "workload": {
+        "cached_fake_credential_present": false,
+        "counter": 0,
+        "documents": 0,
+        "initialisation_ms": 0.44,
+        "marker": "f66a55e9400245cd8821ca6f5188e66c",
+        "mode": "counter",
+        "pid": 559,
+        "query_hits": 0,
+        "workspace": "prepared-workspace"
+      },
+      "workload_ms": 566.909674
+    },
+    "after_source_delete": {
+      "child": {
+        "hostname": "hotzfs-1",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-07e983d5760cbc31",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "memory",
+        "persistent": true
+      },
+      "ms": 185.58843,
+      "workload": {
+        "cached_fake_credential_present": true,
+        "counter": 42,
+        "documents": 0,
+        "initialisation_ms": 0.101,
+        "marker": "980600bd7117464a984f7364a2f43f3a",
+        "mode": "counter",
+        "pid": 677,
+        "query_hits": 0,
+        "workspace": "prepared-workspace"
+      }
+    },
+    "controls": [
+      "cleanup-passed",
+      "cold-child",
+      "commit-delete-blocked",
+      "disk-independence-passed",
+      "hot-after-source-delete",
+      "independence-passed",
+      "source-deleted"
+    ],
+    "injected_failure_control": false,
+    "complete": true,
+    "evidence": "min-counter.jsonl",
+    "sha256": "498da8506344902242845764f999c487810fce12b2f4b0e4b62a23cd2bac9637",
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+  },
+  {
+    "host": ".20",
+    "storage": "zvol-loopback",
+    "variant": "min",
+    "workload": "index",
+    "n": 6,
+    "personal_agent_ms": [
+      157.053682,
+      147.384342,
+      149.39781499999998,
+      156.621806,
+      144.310653,
+      156.001465
+    ],
+    "personal_app_ms": [
+      162.672193,
+      152.419762,
+      154.521566,
+      161.006883,
+      149.33143700000002,
+      161.173404
+    ],
+    "unchanged_agent_ms": [
+      128.609945,
+      145.327608,
+      149.412148,
+      147.077814,
+      150.034346,
+      139.20305199999999
+    ],
+    "unchanged_app_ms": [
+      135.802019,
+      152.138307,
+      154.959088,
+      151.69390199999998,
+      154.658649,
+      144.615208
+    ],
+    "capture_ms": 1585.113995,
+    "capture_n": 1,
+    "cold_control": {
+      "child": {
+        "hostname": "hotzfs-14",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-77734482ef17e6be",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "disk",
+        "persistent": true
+      },
+      "personalised_agent_ms": 422.662308,
+      "workload": {
+        "cached_fake_credential_present": false,
+        "counter": 0,
+        "documents": 300000,
+        "initialisation_ms": 599.321,
+        "marker": "b066caa7ae2141fd89dfa0105c0522e2",
+        "mode": "index",
+        "pid": 558,
+        "query_hits": 3093,
+        "workspace": "prepared-workspace"
+      },
+      "workload_ms": 1093.96947
+    },
+    "after_source_delete": {
+      "child": {
+        "hostname": "hotzfs-1",
+        "source_hostname": "hotzfs-1",
+        "commit_id": "cmt-hotzfsx1-0c282462391e643a",
+        "status": "forked",
+        "parent_status": "unchanged",
+        "child_status": "running",
+        "mode": "memory",
+        "persistent": true
+      },
+      "ms": 175.982687,
+      "workload": {
+        "cached_fake_credential_present": true,
+        "counter": 42,
+        "documents": 300000,
+        "initialisation_ms": 558.517,
+        "marker": "da0711b58ac04b1cb8f4c620fe375b9d",
+        "mode": "index",
+        "pid": 679,
+        "query_hits": 3093,
+        "workspace": "prepared-workspace"
+      }
+    },
+    "controls": [
+      "cleanup-passed",
+      "cold-child",
+      "commit-delete-blocked",
+      "disk-independence-passed",
+      "hot-after-source-delete",
+      "independence-passed",
+      "source-deleted"
+    ],
+    "injected_failure_control": false,
+    "complete": true,
+    "evidence": "min-index.jsonl",
+    "sha256": "350dc59c93827004b53d6486d23234b4a1d922c3515cedce3153c39d604b4a22",
+    "profile": "Fast polling + native nftables + mount helper; batch-label/host-flush/live-capture snapshotter"
+  }
+]

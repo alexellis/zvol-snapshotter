@@ -152,3 +152,12 @@ The binary is installed in `/usr/local/bin` by default. Set `CMD_DESTDIR` to cha
 Zvol Snapshotter (c) 2025 Han Verstraete
 
 SPDX-License-Identifier: Apache-2.0
+
+## Experimental live-volume capture (spike branch)
+
+This branch can prepare an independent checkpoint from an active zvol using
+`containerd.io/snapshot/zvol/live-origin`. The caller must pause its VM while
+capturing both RAM and backing disk. This is an experimental full send/receive
+path with explicit source ownership checks; subsequent forks use normal clones.
+See [the measured controls, costs, and limitations](benchmarks/2026-10-03-hot-loopback.md).
+It has not established production crash/restart recovery or concurrent capture.
