@@ -1,6 +1,7 @@
 package zvol
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -9,8 +10,10 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/containerd/containerd/v2/core/mount"
@@ -624,8 +627,19 @@ func getLabelOpts(opts ...snapshots.Opt) map[string]string {
 	return info.Labels
 }
 
+// setZfsLabelProperties applies tracing labels with one ZFS invocation.
+// Colliding property names use the lexicographically last original label key,
+// including collisions caused by truncation. Previously the winner depended
+// on map iteration order. A failed set may leave properties partially applied,
+// as with the previous individual writes; callers must still handle the error.
 func setZfsLabelProperties(ctx context.Context, dataset *zfs.Dataset, labels map[string]string) error {
-	for key, value := range labels {
+	keys := make([]string, 0, len(labels))
+	for key := range labels {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+	properties := make(map[string]string, len(keys))
+	for _, key := range keys {
 		propertyName := zfsLabelPropertyPrefix + sanitizeZfsLabelPropertyName(key)
 		if propertyName == zfsLabelPropertyPrefix {
 			log.G(ctx).Warnf("skipping empty label name for dataset %s", dataset.Name)
@@ -635,13 +649,54 @@ func setZfsLabelProperties(ctx context.Context, dataset *zfs.Dataset, labels map
 			propertyName = propertyName[:zfsLabelPropertyMaxLength]
 			log.G(ctx).Warnf("truncated zfs label property name to %q", propertyName)
 		}
-		if err := dataset.SetProperty(propertyName, value); err != nil {
+		properties[propertyName] = labels[key]
+	}
+	if len(properties) == 0 {
+		return nil
+	}
+	propertyNames := make([]string, 0, len(properties))
+	for propertyName := range properties {
+		propertyNames = append(propertyNames, propertyName)
+	}
+	sort.Strings(propertyNames)
+	args := make([]string, 1, len(propertyNames)+2)
+	args[0] = "set"
+	for _, propertyName := range propertyNames {
+		args = append(args, propertyName+"="+properties[propertyName])
+	}
+	args = append(args, dataset.Name)
+	run := func(args []string) error {
+		cmd := exec.CommandContext(ctx, "zfs", args...)
+		var stderr bytes.Buffer
+		cmd.Stderr = &stderr
+		if err := cmd.Run(); err != nil {
+			zfsErr := &zfs.Error{
+				Err:    err,
+				Debug:  strings.Join(append([]string{cmd.Path}, cmd.Args[1:]...), " "),
+				Stderr: stderr.String(),
+			}
+			if ctx.Err() != nil {
+				return errors.Join(zfsErr, ctx.Err())
+			}
+			return zfsErr
+		}
+		return nil
+	}
+	if err := run(args); err != nil {
+		var zfsErr *zfs.Error
+		if !errors.As(err, &zfsErr) || !errors.Is(zfsErr.Err, syscall.E2BIG) || ctx.Err() != nil {
 			return err
+		}
+		// E2BIG means the process never started. Preserve support for label
+		// maps that fit individual commands but exceed the aggregate argv limit.
+		for _, property := range args[1 : len(args)-1] {
+			if err := run([]string{"set", property, dataset.Name}); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
 }
-
 
 func sanitizeZfsLabelPropertyName(label string) string {
 	label = strings.TrimPrefix(label, containerdSnapshotLabelPrefix)
